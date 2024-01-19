@@ -1,8 +1,8 @@
 plr = game.Players.LocalPlayer
 
 local config = {
-   ["HeaderWidth"] = 250,
-   ["AccentColor"] = Color3.new(0.6,0,0)
+    ["HeaderWidth"] = 250,
+    ["AccentColor"] = Color3.fromRGB(120, 27, 161)
 }
 
 config.PrimaryColor = Color3.fromRGB(35,35,35)
