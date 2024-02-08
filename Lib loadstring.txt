@@ -1,0 +1,245 @@
+local lp = game.Players.LocalPlayer
+local plr = game.Players.LocalPlayer
+
+local G = Instance.new("ScreenGui")
+
+G.Parent = game.CoreGui
+G.Name = "Zeouron Lib"
+G.ResetOnSpawn = false
+G.Enabled = true
+
+tabs = {}
+tabscounter = 0
+postab = 0
+newtab = function(name)
+    tabscounter = tabscounter +1
+    framepos = 0
+    if postab ~= 0 then
+    	postab = postab +265
+    else
+    	postab = 65
+    end
+    
+    local frame = Instance.new("TextLabel")
+    frame.Position = UDim2.new(0,postab,0,0)
+    frame.Size = UDim2.new(0,235,0,50)
+    frame.Parent = G
+    frame.Draggable = true 
+	frame.Active = true 
+	frame.Selectable = true
+    frame.TextScaled = true
+    frame.Text = name
+    frame.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    frame.TextColor3 = Color3.fromRGB(145,145,145)
+    
+    local plus = Instance.new("TextButton")
+    plus.BackgroundTransparency = 1
+    plus.Position = UDim2.new(0,10,0,7.5)
+    plus.Size = UDim2.new(0,35,0,35)
+    plus.Parent = frame
+    plus.Text = "+"
+    plus.Visible = true
+    plus.TextScaled = true
+    plus.TextColor3 = Color3.fromRGB(60,60,60)
+    
+    local news = Instance.new("Frame")
+    news.Position = UDim2.new(0,0,0,0)
+    news.Size = UDim2.new(0,0,0,0)
+    news.Parent = frame
+    news.Visible = true
+    
+    onoff = false
+    plus.MouseButton1Click:Connect(function()
+        if onoff then
+            onoff = false
+            news.Visible = false
+        else
+        	onoff = true
+            news.Visible = true
+        end
+    end)
+ 
+ 	tabs[tabscounter] = {
+        name,
+        framepos,
+        frame
+    }
+end
+
+label = function(name, tab)
+        for i,v in pairs(tabs) do
+            if v[1] == tab then
+                tabT = v
+            end
+        end
+        if tabT then
+            tabT[2] = tabT[2] +50
+        	local frame = Instance.new("TextLabel")
+            frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    		frame.Position = UDim2.new(0,0,0,tabT[2])
+    		frame.Size = UDim2.new(0,235,0,50)
+    		frame.Parent = tabT[3].Frame
+            frame.Text = name
+            frame.TextScaled = true
+            frame.Visible = true
+            frame.TextColor3 = Color3.fromRGB(235,235,235)
+        end
+    
+end
+
+button = function(name, tab, func)
+        for i,v in pairs(tabs) do
+            if v[1] == tab then
+                tabT = v
+            end
+        end
+        if tabT then
+            tabT[2] = tabT[2] +50
+        	local frame = Instance.new("TextButton")
+            frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    		frame.Position = UDim2.new(0,0,0,tabT[2])
+    		frame.Size = UDim2.new(0,235,0,50)
+    		frame.Parent = tabT[3].Frame
+            frame.Text = name
+            frame.TextScaled = true
+            frame.Visible = true
+            frame.TextColor3 = Color3.fromRGB(185,185,185)
+           
+            frame.MouseButton1Click:Connect(function()
+                func()
+            end)
+        end
+    
+end
+
+switch = function(name, tab, func)
+        for i,v in pairs(tabs) do
+            if v[1] == tab then
+                tabT = v
+            end
+        end
+        if tabT then
+            tabT[2] = tabT[2] +50
+        	local frame = Instance.new("TextLabel")
+            frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    		frame.Position = UDim2.new(0,0,0,tabT[2])
+    		frame.Size = UDim2.new(0,235,0,50)
+    		frame.Parent = tabT[3].Frame
+            frame.Text = name
+            frame.TextScaled = true
+            frame.TextXAlignment = "Left"
+            frame.TextColor3 = Color3.fromRGB(185,185,185)
+            
+            local on = Instance.new("TextButton")
+            on.BackgroundColor3 = Data.DarkerC
+    		on.Position = UDim2.new(0,180,0,7.5)
+    		on.Size = UDim2.new(0,35,0,35)
+    		on.Parent = frame
+            on.Text = ""
+            on.Visible = true
+           
+            local onoffsosososoosososososoososos = false
+            on.MouseButton1Click:Connect(function()
+                if onoffsosososoosososososoososos then
+                    on.BackgroundColor3 = Data.DarkerC
+                    onoffsosososoosososososoososos = false
+                    bool = false
+                else
+              		on.BackgroundColor3 = Data.Color
+                	onoffsosososoosososososoososos = true
+                    bool = true
+                end
+                func()
+            end)
+        end
+    
+end
+
+textbox = function(name, tab, func)
+        for i,v in pairs(tabs) do
+            if v[1] == tab then
+                tabT = v
+            end
+        end
+        if tabT then
+            tabT[2] = tabT[2] +50
+        	local frame = Instance.new("Frame")
+            frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    		frame.Position = UDim2.new(0,0,0,tabT[2])
+    		frame.Size = UDim2.new(0,235,0,50)
+    		frame.Parent = tabT[3].Frame
+            
+            local Box = Instance.new("TextBox")
+            Box.BackgroundColor3 = Color3.fromRGB(35,35,35)
+    		Box.Position = UDim2.new(0,25 /2,0,15 /2)
+    		Box.Size = UDim2.new(0,210,0,35)
+    		Box.Parent = frame
+            Box.Text = ""
+            Box.TextScaled = true
+            Box.Visible = true
+            Box.PlaceholderText = name
+            Box.TextColor3 = Color3.fromRGB(185,185,185)
+            
+            Box.FocusLost:Connect(function()
+                string = Box.Text
+                
+                func()
+            end)
+        end
+    
+end
+
+slider = function(name, tab, min, max, starting, func)
+        for i,v in pairs(tabs) do
+            if v[1] == tab then
+                tabT = v
+            end
+        end
+        if tabT then
+            tabT[2] = tabT[2] +50
+        	local frame = Instance.new("Frame")
+            frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+    		frame.Position = UDim2.new(0,0,0,tabT[2])
+    		frame.Size = UDim2.new(0,235,0,85 -12)
+    		frame.Parent = tabT[3].Frame
+      
+            local sliding = Instance.new("Frame")
+            sliding.BackgroundColor3 = Data.Color
+    		sliding.Position = UDim2.new(0,20,0,85 -19 -25)
+    		sliding.Size = UDim2.new(0,195,0,20)
+    		sliding.Parent = frame
+            
+            local Box = Instance.new("TextBox")
+            Box.BackgroundTransparency = 1
+    		Box.Position = UDim2.new(0,20,0,7)
+    		Box.Size = UDim2.new(0,195,0,35)
+    		Box.Parent = frame
+            Box.Text = starting
+            Box.TextScaled = true
+            Box.TextColor3 = Color3.fromRGB(185,185,185)
+            Box.TextXAlignment = "Left"
+      		
+            tabT[2] = tabT[2] +30 -12
+            
+            Box.FocusLost:Connect(function()
+                if Box.Text == "" then
+                    Box.Text = 0
+                end
+                number = tonumber(Box.Text)
+                if number < min or number > max then
+                    if number < min then
+                        Box.Text = min
+                        number = min
+                    end
+                    if number > max then
+                        Box.Text = max
+                        number = max
+                    end
+                end
+                
+                
+                func()
+            end)
+        end
+    
+end
