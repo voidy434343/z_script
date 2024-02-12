@@ -15,10 +15,128 @@ end
 
 local G = Instance.new("ScreenGui")
 
-G.Parent = Data.GParent
+if Data.KeySystem.On then
+	G.Parent = game.ReplicatedStorage
+else
+	G.Parent = Data.GParent
+end
 G.Name = Data.NameOfYourScript
 G.ResetOnSpawn = false
-G.Enabled = true
+if Data.KeySystem.On then
+	G.Enabled = false
+else
+	G.Enabled = true
+end
+
+if Data.KeySystem.On then
+    local HttpService = game:GetService("HttpService")
+
+	local controlFile = Data.NameOfYourScript.."KeySystem.txt"
+	local defaultSettings = {
+    	Key = ""
+	}
+
+	local function fileExists(filename)
+    	return isfile(filename)
+	end
+
+	if fileExists(controlFile) then
+    	local fileContent = readfile(controlFile)
+    	local data = HttpService:JSONDecode(fileContent)
+    	KeyFound = data.SavedKey
+	else
+    	local defaultSettingsJSON = HttpService:JSONEncode(defaultSettings)
+    	writefile(controlFile, defaultSettingsJSON)
+    	KeyFound = defaultSettings.Key
+	end
+
+	local KeySys = Instance.new("ScreenGui")
+
+	KeySys.Parent = Data.GParent
+	KeySys.Name = Data.NameOfYourScript.." Key System"
+	KeySys.ResetOnSpawn = false
+	KeySys.Enabled = true
+ 
+ 	local KeyFr = Instance.new("Frame")
+	KeyFr.Parent = KeySys
+	KeyFr.Name = "KeyFrame"
+	KeyFr.Size = UDim2.new(0,495,0,275)
+	KeyFr.Position = UDim2.new(0,377,0,221)
+	KeyFr.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	KeyFr.BorderColor3 = Data.MColor
+	KeyFr.Draggable = true 
+	KeyFr.Active = true 
+	KeyFr.Selectable = true
+	KeyFr.ZIndex = math.huge -5
+ 
+ 	local Keylabel = Instance.new("TextLabel")
+	Keylabel.Parent = KeyFr
+	Keylabel.Size = UDim2.new(0,475,0,65)
+	Keylabel.Position = UDim2.new(0,10,0,0)
+	Keylabel.BackgroundTransparency = 1
+	Keylabel.BorderColor3 = Data.MColor
+	Keylabel.ZIndex = math.huge -4
+ 	Keylabel.Text = Data.KeySystem.Text
+  	Keylabel.TextColor3 = Data.MColor
+   	Keylabel.TextScaled = true
+    Keylabel.TextYAlignment = "Top"
+    Keylabel.Font = Data.Font
+    
+    local KeyBox = Instance.new("TextBox")
+	KeyBox.Parent = KeyFr
+	KeyBox.Size = UDim2.new(0,325,0,65)
+	KeyBox.Position = UDim2.new(0,85,0,85)
+	KeyBox.BackgroundColor3 = Data.DColor
+	KeyBox.BorderColor3 = Data.MColor
+	KeyBox.ZIndex = math.huge -4
+ 	KeyBox.Text = ""
+  	KeyBox.TextColor3 = Data.MColor
+   	KeyBox.TextScaled = true
+    KeyBox.Font = Data.Font
+    KeyBox.PlaceholderText = "Key"
+    
+    local GetKey = Instance.new("TextButton")
+	GetKey.Parent = KeyFr
+	GetKey.Size = UDim2.new(0,325,0,65)
+	GetKey.Position = UDim2.new(0,85,0,85 *2)
+	GetKey.BackgroundColor3 = Data.DColor
+	GetKey.BorderColor3 = Data.MColor
+	GetKey.ZIndex = math.huge -4
+ 	GetKey.Text = "Get Key"
+  	GetKey.TextColor3 = Data.MColor
+   	GetKey.TextScaled = true
+    GetKey.Font = Data.Font
+    
+    GetKey.MouseButton1Click:Connect(function()
+        setclipboard(Data.KeySystem.GetKeyLink)
+    end)
+	
+ 	if KeyFound == Data.KeySystem.Key then
+  		G.Parent = Data.GParent
+        G.Enabled = true
+        KeySys:Destroy()
+  	end
+ 	
+	KeyBox.FocusLost:Connect(function()
+        KeyT = KeyBox.Text
+        if KeyT:lower() == Data.KeySystem.Key:lower() then
+            G.Parent = Data.GParent
+            G.Enabled = true
+              
+    		local newsave = {
+    			SavedKey = KeyT
+    		}
+    
+    		local json;
+    		local HttpService = game:GetService("HttpService");
+    		if (writefile) then
+        		json = HttpService:JSONEncode(newsave);
+        		writefile(Data.NameOfYourScript.."KeySystem.txt", json);
+          	end
+            KeySys:Destroy()
+        end
+    end)
+end
 
 local Tabs = Instance.new("Frame")
 
@@ -85,13 +203,18 @@ if Data.MainSettings.OnOff then
        	end
    	end)
 
+	OnOffD = false
 	game:GetService("RunService").Stepped:Connect(function()
-    	local YPos = OnOff.Position.Y.Offset
-     	OnOff.Position = UDim2.new(0,15,0,YPos)
+     	if OnOffD == false then
+    		local YPos = OnOff.Position.Y.Offset
+     		OnOff.Position = UDim2.new(0,15,0,YPos)
+      	end
     end)
 		
 	game.UserInputService.InputBegan:Connect(function(input)
     	if input.KeyCode == Data.MainSettings.Keybind then
+         	OnOffD = true
+          	OnOff:Destroy()
      		if bool then
        			local TweenInf0 = TweenInfo.new(0.2) 
 				local PlayThis = TweenService:Create(Back, TweenInf0, {BackgroundTransparency = 1})
@@ -130,7 +253,7 @@ TextLabel.Parent = G
 TextLabel.Size = UDim2.new(0,525,0,25)
 TextLabel.Position = UDim2.new(0,380,0,850)
 TextLabel.TextScaled = true
-TextLabel.BackgroundColor3 = Color3.fromRGB(25,25,25)
+TextLabel.BackgroundColor3 = Color3.fromRGB(5,5,5)
 TextLabel.TextColor3 = Data.TextColor
 TextLabel.Name = "info"
 TextLabel.Text = string
@@ -610,6 +733,133 @@ slider = function(name, tab, min, max, starting, func, desc)
 				local PlayThis = TweenService:Create(Label, TweenInf0, {Size = UDim2.new(0,number /max *125,0,20)})
 				PlayThis:Play()
             end)
+       	
+     	if desc ~= nil then 
+      		dots.MouseButton1Click:Connect(function()
+            	information(desc)
+            end)
+        end
+    end
+end
+
+keybind = function(name, tab, keycode, keybindText, func, desc)
+    for i,v in pairs(tabs) do
+    	if v[2] == tab then
+        	tabT = v
+        end
+    end
+    
+    if tabT then
+        tabT[4] = tabT[4] +1
+        local pos = tabT[3].ScrollingFrame.Size.Y.Offset +30
+        tabT[3].ScrollingFrame.Size = UDim2.new(0,175,0,pos)
+        tabT[5] = pos
+        
+    	local frame = Instance.new("Frame")
+        if tabT[1] ~= nil then
+    		frame.Parent = tabT[1]
+      	else
+       		frame.Parent = tabT[3].ScrollingFrame
+     	end
+    	frame.Name = "Switch, "..name.."|"..tabT[4]
+    	frame.Size = UDim2.new(0,175,0,30)
+        if tabT[1] ~= nil then
+        	local pos = tabT[1].Size.Y.Offset
+            frame.Position = UDim2.new(0,0,0,pos)
+        end
+    	frame.BackgroundColor3 = Color3.fromRGB(10,10,10)
+    	frame.BorderColor3 = frame.BackgroundColor3
+    	frame.ZIndex = 10
+     
+     	local Label = Instance.new("TextLabel")
+    	Label.Parent = frame
+    	Label.Size = UDim2.new(0,175 -50,0,30)
+   		Label.Position = UDim2.new(0,8,0,0)
+    	Label.BackgroundColor3 = Color3.fromRGB(10,10,10)
+    	Label.BorderColor3 = frame.BackgroundColor3
+    	Label.TextColor3 = Data.TextColor
+ 		Label.TextSize = 18 *1.6
+    	Label.ZIndex = 10
+    	Label.Text = name
+    	Label.Font = Data.Font
+     	Label.TextXAlignment = "Left"
+      
+      	local Switch = Instance.new("TextButton")
+    	Switch.Parent = frame
+    	Switch.Size = UDim2.new(0,20,0,20)
+   		Switch.Position = UDim2.new(0,147,0,5)
+    	Switch.BackgroundColor3 = Data.DColor
+    	Switch.BorderColor3 = frame.BackgroundColor3
+    	Switch.ZIndex = 10
+    	Switch.Text = ""
+     
+     	local KeybindText = Instance.new("TextLabel")
+    	KeybindText.Parent = frame
+    	KeybindText.Size = UDim2.new(0,20,0,20)
+   		KeybindText.Position = UDim2.new(0,117,0,5)
+    	KeybindText.BackgroundColor3 = Data.DColor
+    	KeybindText.BorderColor3 = KeybindText.BackgroundColor3
+    	KeybindText.ZIndex = 10
+    	KeybindText.Text = keybindText
+     	KeybindText.TextScaled = true
+    	KeybindText.Font = Data.Font
+     	KeybindText.TextColor3 = Data.MColor
+     
+     	local KeybindMobile = Instance.new("TextButton")
+    	KeybindMobile.Parent = G
+    	KeybindMobile.Size = UDim2.new(0,45,0,45)
+   		KeybindMobile.Position = UDim2.new(0,776 +math.random(0,125),0,95 +math.random(0,325))
+    	KeybindMobile.BackgroundColor3 = Data.DColor
+    	KeybindMobile.BorderColor3 = KeybindMobile.BackgroundColor3
+    	KeybindMobile.ZIndex = 10
+    	KeybindMobile.Text = keybindText
+    	KeybindMobile.Font = Data.Font
+     	KeybindMobile.TextScaled = true
+      	KeybindMobile.TextColor3 = Data.MColor
+        KeybindMobile.Draggable = true 
+		KeybindMobile.Active = true 
+		KeybindMobile.Selectable = true
+  		KeybindMobile.Name = keybindText
+    	KeybindMobile.Visible = false
+            
+      	if desc ~= nil then
+            Label.Position = UDim2.new(0,20,0,0)
+      		dots = Instance.new("ImageButton")
+    		dots.Parent = frame
+    		dots.Size = UDim2.new(0,24,0,24)
+   			dots.Position = UDim2.new(0,0,0,6 /2)
+    		dots.BackgroundColor3 = Color3.fromRGB(10,10,10)
+    		dots.BorderColor3 = frame.BackgroundColor3
+    		dots.ZIndex = 10
+     		dots.Image = "http://www.roblox.com/asset/?id=16312714761"
+      		dots.ImageColor3 = Data.MColor
+        	dots.BackgroundTransparency = 1
+       	end
+    	
+ 		tabT[1] = frame
+  
+  		game.UserInputService.InputBegan:Connect(function(input)
+    		if input.KeyCode == keycode then
+          		func()
+           	end
+        end)
+    	
+     	KeybindMobile.MouseButton1Click:Connect(function()
+        	func()
+        end)
+   		
+     	bool = false
+     	Switch.MouseButton1Click:Connect(function()
+            if bool then
+                KeybindMobile.Visible = false
+                Switch.BackgroundColor3 = Data.DColor
+     			bool = false
+ 			else
+    			KeybindMobile.Visible = true
+       			Switch.BackgroundColor3 = Data.MColor
+       			bool = true
+            end
+        end)
        	
      	if desc ~= nil then 
       		dots.MouseButton1Click:Connect(function()
