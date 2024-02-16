@@ -702,18 +702,13 @@ function HandleCommand(command, string1, string2, string3, string4, Player) -- C
             if command == Prefix..cmds[4] then -- cmds
                 local tabs = {
                 	"say <string>, bring, to <user>, walkspeed <speed>, jumppower <power>, jump, kill, follow <user>, unfollow, glitchy <string>, Rocket",
-                	"fling, respawn, copychat, uncopychat, math, commandinfo, Gravity <num>, runcode <code>, sit, gaimeter, walkto"
+                	"fling, respawn, copychat, uncopychat, math, commandinfo, Gravity <num>, runcode <code>, sit, gaimeter, walkto",
+                 	"copymovements <plr>, uncopymovements, move <direction>, spin <num>, unspin"
                 }
-                if string1 ~= nil then
-                	for i,v in pairs(tabs) do
-                	    if tonumber(string1) == i then
-                	        chat(v)
-                	    end
-                	end
-             	else
-              		chat("!cmds uses a tab based system! Use !cmds/2 to view the second tab")
-              		chat(tabs[1])
-            	end
+                for i,v in pairs(tabs) do
+                    chat(v)
+                    wait(1)
+                end
             end
             
             if command == Prefix..cmds[1] then -- say
