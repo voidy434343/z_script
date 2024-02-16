@@ -5,6 +5,22 @@ ID = game.PlaceId
 CanDo = true
 PrefixGu = "!"
 CanExec = true
+MsWait = true
+
+--[[
+
+==Todo List==
+
+More Settings
+Custom Commands
+]]
+
+local function Round(UI,num)
+    local round = Instance.new("UICorner")
+    round.Parent = UI
+    round.CornerRadius = UDim.new(num,num)
+end
+
 
 local cmds = {
     "say",
@@ -33,7 +49,15 @@ local cmds = {
     "copychat", -- 24
     "uncopychat",
     "math", -- 26
-    "commandinfo"
+    "commandinfo",
+    "admins", -- 28
+    "a",
+    "copymovements",
+    "uncopymovements",
+    "move", -- 32
+    "setclipboard", --33
+    "spin",
+    "unspin"
 }
 
 -- game.CoreGui["Project Zeouron Main"]:Destroy()
@@ -49,7 +73,9 @@ local Data = {
 }
 
 local Credits = {
-    "Owner/Scripter: l_l6658"
+    "Owner/Scripter: l_l6658",
+    "Inspiration: Synth Control",
+    "Helper: NexKacper"
 }
 
 local CT = Instance.new("Frame")
@@ -67,11 +93,11 @@ G.Enabled = true
 
 local Top = Instance.new("Frame")
 
-Top.Position = UDim2.new(0,331,0,172)
+Top.Position = UDim2.new(0,0,0,0)
 Top.Size = UDim2.new(0,440 + 125,0,37)
 Top.Parent = G
 Top.BackgroundColor3 = Data.Color
-Top.Draggable = false 
+Top.Draggable = true 
 Top.Active = true 
 Top.Selectable = true
 Top.ZIndex = 6
@@ -262,14 +288,14 @@ Prefixo.TextColor3 = Data.Color
 Prefixo.TextScaled = true
 Prefixo.PlaceholderText = "Prefix"
 
-local PrefixF = Instance.new("Frame")
+local PrefixoF = Instance.new("Frame")
 
-PrefixF.BackgroundColor3 = Data.Color
-PrefixF.Size = UDim2.new(0,170,0,55)
-PrefixF.Position = UDim2.new(0,53 -12.5 -2.5,0,85 -2.5)
-PrefixF.Parent = Main
-PrefixF.BackgroundTransparency = 0
-PrefixF.ZIndex = 4.9
+PrefixoF.BackgroundColor3 = Data.Color
+PrefixoF.Size = UDim2.new(0,170,0,55)
+PrefixoF.Position = UDim2.new(0,-2.5,0,-2.5)
+PrefixoF.Parent = Prefixo
+PrefixoF.BackgroundTransparency = 0
+PrefixoF.ZIndex = 4.9
 
 local PrefixRound = Instance.new("UICorner")
 PrefixRound.Parent = Prefix
@@ -309,6 +335,89 @@ PrefixRound.CornerRadius = UDim.new(0.08,0.08)
 local PrefixFRound = Instance.new("UICorner")
 PrefixFRound.Parent = PrefixF
 PrefixFRound.CornerRadius = UDim.new(0.08,0.08)
+
+local MS = Instance.new("TextButton")
+
+MS.BackgroundColor3 = Data.DarkC
+MS.Size = UDim2.new(0,220,0,40)
+MS.Position = UDim2.new(0,40.5,0,45)
+MS.Parent = Main
+MS.BackgroundTransparency = 0
+MS.ZIndex = 5
+MS.Font = Data.Font
+MS.Text = "More Settings"
+MS.TextColor3 = Data.Color
+MS.TextScaled = true
+MS.TextTransparency = 0
+MS.BackgroundTransparency = 1
+MS.Visible = true
+MS.TextXAlignment = "Left"
+
+local MSo = Instance.new("TextButton")
+
+MSo.BackgroundColor3 = Data.DarkC
+MSo.Size = UDim2.new(0,220,0,40)
+MSo.Position = UDim2.new(0,40.5,0,45)
+MSo.Parent = Main
+MSo.BackgroundTransparency = 0
+MSo.ZIndex = 5
+MSo.Font = Data.Font
+MSo.Text = "Back"
+MSo.TextColor3 = Data.Color
+MSo.TextScaled = true
+MSo.TextTransparency = 0
+MSo.BackgroundTransparency = 1
+MSo.Visible = false
+MSo.TextXAlignment = "Left"
+
+local Load = Instance.new("TextButton")
+
+Load.BackgroundColor3 = Data.DarkC
+Load.Size = UDim2.new(0,165,0,50)
+Load.Position = UDim2.new(0,40.5 *13.5,0,85) --UDim2.new(0,40.5 *6.5,0,85)
+Load.Parent = Main
+Load.BackgroundTransparency = 0
+Load.ZIndex = 5
+Load.Font = Data.Font
+Load.Text = "True"
+Load.TextColor3 = Data.Color
+Load.TextScaled = true
+
+local Loado = Instance.new("TextButton")
+
+Loado.BackgroundColor3 = Data.DarkC
+Loado.Size = UDim2.new(0,165,0,50)
+Loado.Position = UDim2.new(0,40.5 *13.5,0,85)
+Loado.Parent = Main
+Loado.BackgroundTransparency = 0
+Loado.ZIndex = 5
+Loado.Font = Data.Font
+Loado.Text = "False"
+Loado.TextColor3 = Data.Color
+Loado.TextScaled = true
+Loado.Visible = false
+
+local LoadOf = Instance.new("Frame")
+
+LoadOf.BackgroundColor3 = Data.Color
+LoadOf.Size = UDim2.new(0,170,0,55)
+LoadOf.Position = UDim2.new(0,-2.5,0,-2.5)
+LoadOf.Parent = Load
+LoadOf.BackgroundTransparency = 0
+LoadOf.ZIndex = 4.9
+
+Round(LoadOf, 0.08)
+Round(Loado, 0.08)
+Round(Load, 0.08)
+
+local PrefixoF = Instance.new("Frame")
+
+PrefixoF.BackgroundColor3 = Data.Color
+PrefixoF.Size = UDim2.new(0,170,0,55)
+PrefixoF.Position = UDim2.new(0,-2.5,0,-2.5)
+PrefixoF.Parent = Prefixo
+PrefixoF.BackgroundTransparency = 0
+PrefixoF.ZIndex = 4.9
 
 local C = Instance.new("TextButton")
 
@@ -366,6 +475,68 @@ local MainRound = Instance.new("UICorner")
 MainRound.Parent = Main
 MainRound.CornerRadius = UDim.new(0.04,0.04)
 
+LoadMsg = true
+
+Load.MouseButton1Click:Connect(function()
+    Load.Visible = false
+    Loado.Visible = true
+    
+    LoadMsg = false
+end)
+
+Loado.MouseButton1Click:Connect(function()
+    Loado.Visible = false
+    Load.Visible = true
+    
+    LoadMsg = true
+end)
+
+MS.MouseButton1Click:Connect(function()
+    if MsWait then
+    	MS.Visible = false
+    	MSo.Visible = true
+        
+        local TweenInf0 = TweenInfo.new(3)
+    	local PlayThisA = TweenService:Create(ProjectZeouron, TweenInf0, {Position = UDim2.new(0,1000,0,33)})
+    	PlayThisA:Play()
+     
+        local TweenInf0 = TweenInfo.new(3)
+    	local PlayThisA = TweenService:Create(Load, TweenInf0, {Position = UDim2.new(0,40.5 *6.5,0,85)})
+    	PlayThisA:Play()
+     
+        local TweenInf0 = TweenInfo.new(3)
+    	local PlayThisA = TweenService:Create(Loado, TweenInf0, {Position = UDim2.new(0,40.5 *6.5,0,85)})
+    	PlayThisA:Play()
+        
+        MsWait = false
+        wait(3)
+        MsWait = true
+    end
+end)
+
+MSo.MouseButton1Click:Connect(function()
+    if MsWait then
+    	MS.Visible = true
+    	MSo.Visible = false
+        
+        local TweenInf0 = TweenInfo.new(2)
+    	local PlayThisA = TweenService:Create(ProjectZeouron, TweenInf0, {Position = UDim2.new(0,390 /1.7,0,33)})
+    	PlayThisA:Play()
+     
+        local TweenInf0 = TweenInfo.new(3)
+    	local PlayThisA = TweenService:Create(Load, TweenInf0, {Position = UDim2.new(0,40.5 *12.5,0,85)})
+    	PlayThisA:Play()
+     
+        local TweenInf0 = TweenInfo.new(3)
+    	local PlayThisA = TweenService:Create(Loado, TweenInf0, {Position = UDim2.new(0,40.5 *12.5,0,85)})
+    	PlayThisA:Play()
+        
+        MsWait = false
+        wait(3)
+        MsWait = true
+    end
+end)
+
 C.MouseButton1Click:Connect(function()
     if CanDo then
     	C.Visible = false
@@ -396,6 +567,43 @@ Co.MouseButton1Click:Connect(function()
 end)
 
 
+TopA.MouseButton1Click:Connect(function()
+    Top.Draggable = true 
+    
+    TopA.Visible = false
+    TopO.Visible = true
+    local TweenService = game:GetService("TweenService")
+    local TweenInf0 = TweenInfo.new(1) 
+    local PlayThis = TweenService:Create(Main, TweenInf0, {Size = UDim2.new(0,390 +125,0,0)})
+    
+    local TweenInf0 = TweenInfo.new(1) 
+    local PlayThisA = TweenService:Create(MainA, TweenInf0, {Size = UDim2.new(0,390 +105,0,0)})
+    
+    local TweenInf0 = TweenInfo.new(1) 
+    local PlayThisO = TweenService:Create(MainO, TweenInf0, {Size = UDim2.new(0,390 +105,0,0)})
+    
+    PlayThis:Play()
+    PlayThisA:Play()
+    PlayThisO:Play()
+end)
+
+TopO.MouseButton1Click:Connect(function()
+    TopA.Visible = true
+    TopO.Visible = false
+    local TweenInf0 = TweenInfo.new(1) 
+    local PlayThis = TweenService:Create(Main, TweenInf0, {Size = UDim2.new(0,390 +125,0,300)})
+    
+    local TweenInf0 = TweenInfo.new(1) 
+    local PlayThisA = TweenService:Create(MainA, TweenInf0, {Size = UDim2.new(0,390 +105,0,285)})
+    
+    local TweenInf0 = TweenInfo.new(1) 
+    local PlayThisO = TweenService:Create(MainO, TweenInf0, {Size = UDim2.new(0,390 +105,0,285)})
+    
+    PlayThisO:Play()
+    PlayThis:Play()
+    PlayThisA:Play()
+end)
+
 ProjectZeouron.MouseButton1Click:Connect(function()
     if CanExec then
     CanExec = false
@@ -422,6 +630,8 @@ ProjectZeouron.MouseButton1Click:Connect(function()
 local lp = game.Players.LocalPlayer
 local plr = lp
 local Players = game.Players
+local CopyMov = false
+local MovCopier = ""
 
 local replace = {"Q~Q̷̱̃","W~̶͚͘W̵̲̅", "E~̵͕̇Ė̵͕","R~̴̪̑Ř̴͜","T~̷̱̂T̶̩̈","Z~̴͓̿Z̶̨̈́","U~̶͍́U̴̬̚","I~̵̢͆I̵̱͌","O~̴͈͊Ó̴̝","P~P̸̠̆","A~̶̓ͅÄ̵̩́","S~̶̢̄S̷̝͑","D~̸̜̇Ḓ̵̈́","F~̸̱͆F̸̪̂","G~̵͉̕Ğ̷̦","H~̶̙̈́Ĥ̵̩","J~̴̲̏J̸̱̀","K~̶̈́ͅǨ̵̯","L~̶̻̄L̸͙͘","Y~̸͎̍Y̴̦̋","X~̷̪͘X̸͓͋","C~̶̘͝C̷̢͝","V~̸̘̇V̸͇̓","B~̷̟͒B̵̟̃","N~̵͍̔N̸̳͒","M~̷̘̂M̴͔͆"
       }
@@ -440,10 +650,14 @@ Z.Parent = game.ReplicatedStorage
 
 function chatN(varr) 
     wait(0.01)
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+   	if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(varr)
+    else
+  		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+    end
 end
 
-if Prefixo.Text == "" and Prefixo.Text == "" then
+if Prefixo.Text == "" or Prefixo.Text == " " or Prefixo.Text == "/" or Prefixo.Text:len() < 2 then
     Prefixo.Text = "!"
 end
 
@@ -452,41 +666,126 @@ NameOf = NameSo.Text
 NameActual = "["..NameOf.."]: "
 
 function chat(varr) 
-    wait(0.01)
-     game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    wait(0.01)    
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(NameActual..varr)
+    else
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    end
 end
 
-chat("Loaded Zeouron Alt control, Say \""..Prefix.."Cmds\" for commands!, type \""..Prefix.."Information\" for more info")
+if LoadMsg then
+	chat("Loaded Zeouron Alt control, Say \""..Prefix.."Cmds\" for commands!, type \""..Prefix.."Information\" for more info")
+end
 
--- Custom ui,
--- Settings,
--- Changelog
-
-local Admins = {
-    lp.Name
-}
-function HandleCommand(command, string1, string2, string3, string4, Player) -- Command handler
-    if command == Prefix..cmds[19] then -- information
-        if Player == lp then
-            chat("This is an alt control script, it allows other people to control you, people have to be admins to do")
-        else
-        	chat("mm")
-        end
-    end
+local Admins = {lp.Name}
+function HandleCommand(command, string1, string2, string3, string4, Player) -- Command handle
     isadmin = false
-    for i,v in pairs(Admins) do
-        if v == Player.Name or v == lp then
-            isadmin = true
-        end
-    end
-    	if isadmin then
+            for i,v in pairs(Admins) do
+            	if v == Player.Name or Player.Name == lp.Name then
+            		isadmin = true
+        		end
+    		end
+    		if command == Prefix..cmds[19] then -- information
+        		if Player == lp then
+            		chat("This is an alt control script, it allows other people to control you, people have to be admins to do")
+        		else
+                    if isadmin then
+                    	yes = "you are an admin, say \""..Prefix.."cmds\" for commands."
+                    else
+                    	yes = "you aren't admin, ask "..lp.DisplayName.." for admin."
+                    end
+        			chat("This is an alt control script, it allows you to control "..lp.DisplayName..", you have to be an admin to do so, "..yes)
+        		end
+    		end
+    		if isadmin then
             if command == Prefix..cmds[4] then -- cmds
-                chat("say <string>, bring, to <user>, walkspeed <speed>, jumppower <power>, jump, kill, follow <user>, unfollow, glitchy <string>, Rocket, Gravity <num>, runcode <code>, sit, gaimeter, walkto")
-                chat("fling, respawn, copychat, uncopychat, math, commandinfo")
+                local tabs = {
+                	"say <string>, bring, to <user>, walkspeed <speed>, jumppower <power>, jump, kill, follow <user>, unfollow, glitchy <string>, Rocket",
+                	"fling, respawn, copychat, uncopychat, math, commandinfo, Gravity <num>, runcode <code>, sit, gaimeter, walkto"
+                }
+                if string1 ~= nil then
+                	for i,v in pairs(tabs) do
+                	    if tonumber(string1) == i then
+                	        chat(v)
+                	    end
+                	end
+             	else
+              		chat("!cmds uses a tab based system! Use !cmds/2 to view the second tab")
+              		chat(tabs[1])
+            	end
             end
             
             if command == Prefix..cmds[1] then -- say
                 chatN(string1)
+            end
+        
+        	if command == Prefix..cmds[33] then -- setclipboard
+             	if string1 then
+            		setclipboard(tostring(string1))
+             		chat("Set "..string1.." to clipboard!")
+              	end
+            end
+        	
+        	if command == Prefix..cmds[32] then -- move
+             	if string2 == nil then
+                  	chat("Please select an amount of studs to move")
+                end
+            	if string2 ~= nil then
+                if string1 then
+                    if string1:lower() == "forward" or string1:lower() == "backward" or string1:lower() == "left" or string1:lower() == "right" then
+                    if string1:lower() == "forward" then
+                    	local Offset = CFrame.new(0, 0, 0 -tonumber(string2))
+						local otherRoot = lp.character.HumanoidRootPart
+						local CFrame = otherRoot.CFrame * Offset
+      					local CF = CFrame.Position
+           				lp.character.Humanoid:MoveTo(CF)
+                    end
+                
+                	if string1:lower() == "backward" then
+                    	local Offset = CFrame.new(0, 0, tonumber(string2))
+						local otherRoot = lp.character.HumanoidRootPart
+						local CFrame = otherRoot.CFrame * Offset
+      					local CF = CFrame.Position
+           				lp.character.Humanoid:MoveTo(CF)
+                    end
+                
+                	if string1:lower() == "right" then
+                    	local Offset = CFrame.new(tonumber(string2), 0, 0)
+						local otherRoot = lp.character.HumanoidRootPart
+						local CFrame = otherRoot.CFrame * Offset
+      					local CF = CFrame.Position
+           				lp.character.Humanoid:MoveTo(CF)
+                    end
+                
+                	if string1:lower() == "left" then
+                    	local Offset = CFrame.new(0 -tonumber(string2), 0, 0)
+						local otherRoot = lp.character.HumanoidRootPart
+						local CFrame = otherRoot.CFrame * Offset
+      					local CF = CFrame.Position
+           				lp.character.Humanoid:MoveTo(CF)
+                    end
+                else
+                	chat("Please use !move/forward, !move/backwards, !move/right or !move/left instead")
+                end
+             	else
+              		chat("Please use !move/forward, !move/backwards, !move/right or !move/left instead")
+                end
+            	end
+            end
+        
+        	if command == Prefix..cmds[29] then -- information
+           		chatN("ooo")
+            end
+        
+            if command == Prefix..cmds[28] then -- admins
+                msg = ""
+                for i,v in pairs(Admins) do
+                    if v ~= lp.Name then
+                    	msg = msg..v
+                    end
+                end
+                chat(msg)
             end
         
         	if command == Prefix..cmds[22] then -- fling
@@ -526,12 +825,59 @@ function HandleCommand(command, string1, string2, string3, string4, Player) -- C
                 end
             end
         
+        	if command == Prefix..cmds[30] then -- copymovements
+            	if string1 ~= nil then
+                    for i,v in pairs(game.Players:GetPlayers()) do
+                        if v.Name:lower() == string1:lower() or v.DisplayName:lower() == string1:lower() then
+                            MovCopier = v.Name
+                            CopyMov = true
+                            chat("Now copying "..v.DisplayName.."'s Movements")
+                        end
+                    end
+                else
+                    MovCopier = Player.Name
+                    CopyMov = true
+                    chat("Now copying your Movements")
+                end
+            end
+        
+        	if command == Prefix..cmds[31] then -- uncopymovements
+            	MovCopier = ""
+                CopyMov = false
+            end
+        
         	if command == Prefix..cmds[23] then -- respawn
                 lp.character.Humanoid.Health = 0
                 oldpos = lp.character.HumanoidRootPart.Position
                 res = true
             end
         
+       		if command == Prefix..cmds[34] then -- spin
+             	if string1 then
+            		spinSpeed = string1
+             	else
+              		spinSpeed = 15
+             	end
+	 			for i,v in pairs(game.Players.LocalPlayer.Character.HumanoidRootPart:GetChildren()) do
+		 			if v.Name == "Spinning" then
+			 			v:Destroy()
+		 			end
+	 			end
+	 			local Spin = Instance.new("BodyAngularVelocity")
+	 			Spin.Name = "Spinning"
+	 			Spin.Parent = lp.character.HumanoidRootPart
+	 			Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+	 			Spin.AngularVelocity = Vector3.new(0,spinSpeed,0)
+            end
+       
+       		if command == Prefix..cmds[35] then -- unspin
+            	for i,v in pairs(game.Players.LocalPlayer.Character.HumanoidRootPart:GetChildren()) do
+		 			if v.Name == "Spinning" then
+			 			v:Destroy()
+		 			end
+	 			end
+            end
+       		
             if command == Prefix..cmds[26] then -- math
                 if string2:lower() == "division" or string2:lower() == "multiplication" or string2:lower() == "addition" or string2:lower() == "subtraction" then
                 	if string2:lower() == "addition" then
@@ -699,7 +1045,7 @@ function HandleCommand(command, string1, string2, string3, string4, Player) -- C
                         if followuser ~= nil then
                             follow = true
                             while wait() and follow do
-                                lp.character.Humanoid.WalkToPoint = followuser.character.HumanoidRootPart.Position
+                                lp.character.Humanoid:MoveTo(followuser.character.HumanoidRootPart.Position)
                             end
                         end
                     else
@@ -734,8 +1080,8 @@ function HandleCommand(command, string1, string2, string3, string4, Player) -- C
                     end
                 end
             -- End
-        end
     end
+end
 
 
 
@@ -761,6 +1107,7 @@ for i,v in pairs(game.Players:GetPlayers()) do
         	StringPart2 = Parts[3] 
             StringPart3 = Parts[4] 
             StringPart4 = Parts[5] 
+            
         	HandleCommand(commandPart, StringPart, StringPart2, StringPart3, StringPart4, v)
             
             if v.Name == copychatuser or copychatuser == "all" then
@@ -769,6 +1116,21 @@ for i,v in pairs(game.Players:GetPlayers()) do
                 end
             end
         end
+    end)
+	v.character.Humanoid:GetPropertyChangedSignal("Jump"):Connect(function(j)
+     	j = v.character.Humanoid.Jump
+        if v.Name == MovCopier then
+            lp.character.Humanoid.Jump = j
+        end
+    end)
+	v.CharacterAdded:Connect(function(char)
+     	wait(0.5)
+    	char.Humanoid:GetPropertyChangedSignal("Jump"):Connect(function()
+         	j = char.Humanoid.Jump
+        	if char.Name == MovCopier then
+            	lp.character.Humanoid.Jump = j
+            end
+        end)
     end)
 end
 
@@ -782,16 +1144,27 @@ game.Players.PlayerAdded:Connect(function(added)
         	StringPart2 = Parts[3]
         	StringPart3 = Parts[4] 
             StringPart4 = Parts[5] 
-        	HandleCommand(commandPart, StringPart, StringPart2, StringPart3, StringPart4, v)
+        	HandleCommand(commandPart, StringPart, StringPart2, StringPart3, StringPart4, added)
          
-            if v.Name == copychatuser or copychatuser == "all" then
-                if v.Name ~= lp.Name then
-        			chatN("["..v.DisplayName.."]: "..msg)
+            if added.Name == copychatuser or copychatuser == "all" then
+                if added.Name ~= lp.Name then
+        			chatN("["..added.DisplayName.."]: "..msg)
                 end
             end
         end
     end)
+	added.CharacterAdded:Connect(function(char)
+     	wait(0.5)
+    	char.Humanoid:GetPropertyChangedSignal("Jump"):Connect(function()
+         	j = char.Humanoid.Jump
+        	if char.Name == MovCopier then
+            	lp.character.Humanoid.Jump = j
+            end
+        end)
+    end)
 end)
+
+
 
 lp.CharacterAdded:Connect(function(s)
     wait()
@@ -801,9 +1174,15 @@ lp.CharacterAdded:Connect(function(s)
     end
 end)
     
-    
-    
-    
+game:GetService("RunService").Stepped:Connect(function()
+    if CopyMov then
+    	Hum = game.Players:FindFirstChild(MovCopier).character
+     
+     	if Hum ~= nil then
+        	lp.character.Humanoid:MoveTo(Hum.Humanoid.MoveDirection *4 +lp.character.HumanoidRootPart.Position)
+        end
+    end
+end)
     
     
     
@@ -813,46 +1192,6 @@ end)
     wait(4.5)
     G:Destroy()
     end
-end)
-
-
-TopA.MouseButton1Click:Connect(function()
-    Top.Draggable = true 
-    
-    TopA.Visible = false
-    TopO.Visible = true
-    local TweenService = game:GetService("TweenService")
-    local TweenInf0 = TweenInfo.new(1) 
-    local PlayThis = TweenService:Create(Main, TweenInf0, {Size = UDim2.new(0,390 +125,0,0)})
-    
-    local TweenInf0 = TweenInfo.new(1) 
-    local PlayThisA = TweenService:Create(MainA, TweenInf0, {Size = UDim2.new(0,390 +105,0,0)})
-    
-    local TweenInf0 = TweenInfo.new(1) 
-    local PlayThisO = TweenService:Create(MainO, TweenInf0, {Size = UDim2.new(0,390 +105,0,0)})
-    
-    PlayThis:Play()
-    PlayThisA:Play()
-    PlayThisO:Play()
-end)
-
-TopO.MouseButton1Click:Connect(function()
-    Top.Draggable = false
-    
-    TopA.Visible = true
-    TopO.Visible = false
-    local TweenInf0 = TweenInfo.new(1) 
-    local PlayThis = TweenService:Create(Main, TweenInf0, {Size = UDim2.new(0,390 +125,0,300)})
-    
-    local TweenInf0 = TweenInfo.new(1) 
-    local PlayThisA = TweenService:Create(MainA, TweenInf0, {Size = UDim2.new(0,390 +105,0,285)})
-    
-    local TweenInf0 = TweenInfo.new(1) 
-    local PlayThisO = TweenService:Create(MainO, TweenInf0, {Size = UDim2.new(0,390 +105,0,285)})
-    
-    PlayThisO:Play()
-    PlayThis:Play()
-    PlayThisA:Play()
 end)
 
 local TweenInf0 = TweenInfo.new(2) 
