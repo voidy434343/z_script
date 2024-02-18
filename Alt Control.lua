@@ -6,6 +6,62 @@ CanDo = true
 PrefixGu = "!"
 CanExec = true
 MsWait = true
+MsWait = true
+local FileSupport = isfile and isfolder and writefile and readfile
+Alt = [[
+
+]]
+
+local default = {
+    Name = "Command",
+    Code = "chat(Player.Name..\" just used a command!\") "
+}
+
+command1data = default
+command2data = default
+command3data = default
+command4data = default
+command5data = default
+
+if FileSupport then
+    local json;
+    local HttpService = game:GetService("HttpService");
+    json = HttpService:JSONEncode(default);
+    
+	if not isfolder('ProjectZeouron') then
+    	makefolder("ProjectZeouron")
+    end
+	if not isfile('ProjectZeouron/Custom1.txt') then
+		writefile("ProjectZeouron/Custom1.txt",json)
+ 	end
+	if not isfile('ProjectZeouron/Custom2.txt') then
+		writefile("ProjectZeouron/Custom2.txt",json)
+ 	end
+	if not isfile('ProjectZeouron/Custom3.txt') then
+		writefile("ProjectZeouron/Custom3.txt",json)
+ 	end
+	if not isfile('ProjectZeouron/Custom4.txt') then
+		writefile("ProjectZeouron/Custom4.txt",json)
+ 	end
+	if not isfile('ProjectZeouron/Custom5.txt') then
+		writefile("ProjectZeouron/Custom5.txt",json)
+ 	end
+
+	local fileContent = readfile("ProjectZeouron/Custom1.txt")
+    command1data = HttpService:JSONDecode(fileContent)
+    
+    local fileContent = readfile("ProjectZeouron/Custom2.txt")
+    command2data = HttpService:JSONDecode(fileContent)
+    
+    local fileContent = readfile("ProjectZeouron/Custom3.txt")
+    command3data = HttpService:JSONDecode(fileContent)
+    
+    local fileContent = readfile("ProjectZeouron/Custom4.txt")
+    command4data = HttpService:JSONDecode(fileContent)
+    
+    local fileContent = readfile("ProjectZeouron/Custom5.txt")
+    command5data = HttpService:JSONDecode(fileContent)
+end
 
 --[[
 
@@ -60,6 +116,13 @@ local cmds = {
     "unspin"
 }
 
+local customCmds = {
+    command1data.Name,
+    command2data.Name,
+    command3data.Name,
+    command4data.Name,
+    command5data.Name
+}
 -- game.CoreGui["Project Zeouron Main"]:Destroy()
 
 local soso = Instance.new("Frame")
@@ -264,11 +327,16 @@ for i,v in pairs(cmds) do
     SGP = SGP + 40
 end
 
+local MST = Instance.new("Frame")
+MST.Size = UDim2.new(0,0,0,0)
+MST.Parent = Main
+MST.Visible = true
+
 local ProjectZeouron = Instance.new("ImageButton")
 
 ProjectZeouron.Size = UDim2.new(0,152 *1.7,0,152 *1.7)
 ProjectZeouron.Position = UDim2.new(0,390 /1.7,0,33)
-ProjectZeouron.Parent = Main
+ProjectZeouron.Parent = MST
 ProjectZeouron.BackgroundTransparency = 1
 ProjectZeouron.ZIndex = 5
 ProjectZeouron.Image = "http://www.roblox.com/asset/?id=16096831367"
@@ -279,7 +347,7 @@ local Prefixo = Instance.new("TextBox")
 Prefixo.BackgroundColor3 = Data.DarkC
 Prefixo.Size = UDim2.new(0,165,0,50)
 Prefixo.Position = UDim2.new(0,53 -12.5,0,85)
-Prefixo.Parent = Main
+Prefixo.Parent = MST
 Prefixo.BackgroundTransparency = 0
 Prefixo.ZIndex = 5
 Prefixo.Font = Data.Font
@@ -310,7 +378,7 @@ local NameSo = Instance.new("TextBox")
 NameSo.BackgroundColor3 = Data.DarkC
 NameSo.Size = UDim2.new(0,165,0,50)
 NameSo.Position = UDim2.new(0,53 -12.5,0,85 *2)
-NameSo.Parent = Main
+NameSo.Parent = MST
 NameSo.BackgroundTransparency = 0
 NameSo.ZIndex = 5
 NameSo.Font = Data.Font
@@ -324,7 +392,7 @@ local NameSF = Instance.new("Frame")
 NameSF.BackgroundColor3 = Data.Color
 NameSF.Size = UDim2.new(0,170,0,55)
 NameSF.Position = UDim2.new(0,53 -12.5 -2.5,0,85 *2 -2.5)
-NameSF.Parent = Main
+NameSF.Parent = MST
 NameSF.BackgroundTransparency = 0
 NameSF.ZIndex = 4.9
 
@@ -341,7 +409,7 @@ local MS = Instance.new("TextButton")
 MS.BackgroundColor3 = Data.DarkC
 MS.Size = UDim2.new(0,220,0,40)
 MS.Position = UDim2.new(0,40.5,0,45)
-MS.Parent = Main
+MS.Parent = MST
 MS.BackgroundTransparency = 0
 MS.ZIndex = 5
 MS.Font = Data.Font
@@ -358,7 +426,7 @@ local MSo = Instance.new("TextButton")
 MSo.BackgroundColor3 = Data.DarkC
 MSo.Size = UDim2.new(0,220,0,40)
 MSo.Position = UDim2.new(0,40.5,0,45)
-MSo.Parent = Main
+MSo.Parent = MST
 MSo.BackgroundTransparency = 0
 MSo.ZIndex = 5
 MSo.Font = Data.Font
@@ -451,6 +519,880 @@ Co.TextTransparency = 1
 Co.BackgroundTransparency = 1
 Co.Visible = false
 
+local CC = Instance.new("TextButton")
+
+CC.BackgroundColor3 = Data.DarkC
+CC.Size = UDim2.new(0,40,0,40)
+CC.Position = UDim2.new(0,405,0,45)
+CC.Parent = MainS
+CC.BackgroundTransparency = 0
+CC.ZIndex = 5
+CC.Font = Data.Font
+CC.Text = "CC"
+CC.TextColor3 = Data.Color
+CC.TextScaled = true
+CC.TextTransparency = 0
+CC.BackgroundTransparency = 0
+CC.Visible = true
+
+local CCo = Instance.new("TextButton")
+
+CCo.BackgroundColor3 = Data.DarkC
+CCo.Size = CC.Size
+CCo.Position = CC.Position
+CCo.Parent = MainS
+CCo.BackgroundTransparency = 0
+CCo.ZIndex = 5
+CCo.Font = Data.Font
+CCo.Text = "B"
+CCo.TextColor3 = Data.Color
+CCo.TextScaled = true
+CCo.TextTransparency = 0
+CCo.BackgroundTransparency = 0
+CCo.Visible = false
+
+local CCT = Instance.new("Frame")
+CCT.Size = UDim2.new(0,0,0,0)
+CCT.Parent = Main
+CCT.Visible = true
+CCT.Position = UDim2.new(0,390 +125,0,0)
+
+local CCT1 = Instance.new("Frame")
+CCT1.Size = UDim2.new(0,0,0,0)
+CCT1.Parent = CCT
+CCT1.Visible = true
+CCT1.Position = UDim2.new(0,0,0,0)
+
+local CCT2 = Instance.new("Frame")
+CCT2.Size = UDim2.new(0,0,0,0)
+CCT2.Parent = CCT
+CCT2.Visible = false
+CCT2.Position = UDim2.new(0,0,0,0)
+
+local CCT3 = Instance.new("Frame")
+CCT3.Size = UDim2.new(0,0,0,0)
+CCT3.Parent = CCT
+CCT3.Visible = false
+CCT3.Position = UDim2.new(0,0,0,0)
+
+local CCT4 = Instance.new("Frame")
+CCT4.Size = UDim2.new(0,0,0,0)
+CCT4.Parent = CCT
+CCT4.Visible = false
+CCT4.Position = UDim2.new(0,0,0,0)
+
+local CCT5 = Instance.new("Frame")
+CCT5.Size = UDim2.new(0,0,0,0)
+CCT5.Parent = CCT
+CCT5.Visible = false
+CCT5.Position = UDim2.new(0,0,0,0)
+
+local Changer = Instance.new("TextBox")
+	Changer.Parent = CCT
+	Changer.Size = UDim2.new(0,40,0,40)
+	Changer.Position = UDim2.new(0,450,0,240)
+	Changer.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Changer.BorderColor3 = Color3.fromRGB(25,25,25)
+	Changer.ZIndex = 5
+ 	Changer.Text = 1
+ 	Changer.PlaceholderText = "Num"
+	Changer.ClearTextOnFocus = false
+	Changer.MultiLine = false
+	Changer.TextSize = 32
+	Changer.TextColor3 = Data.Color
+ 	Changer.TextScaled = true
+  
+  	Changer.FocusLost:Connect(function()
+       if tonumber(Changer.Text) == 1 then
+           CCT1.Visible = true
+           CCT2.Visible = false
+           CCT3.Visible = false
+           CCT4.Visible = false
+           CCT5.Visible = false
+       end
+   		if tonumber(Changer.Text) == 2 then
+           CCT1.Visible = false
+           CCT2.Visible = true
+           CCT3.Visible = false
+           CCT4.Visible = false
+           CCT5.Visible = false
+       	end
+		if tonumber(Changer.Text) == 3 then
+           CCT1.Visible = false
+           CCT2.Visible = false
+           CCT3.Visible = true
+           CCT4.Visible = false
+           CCT5.Visible = false
+       	end
+   		if tonumber(Changer.Text) == 4 then
+           CCT1.Visible = false
+           CCT2.Visible = false
+           CCT3.Visible = false
+           CCT4.Visible = true
+           CCT5.Visible = false
+       	end
+    	if tonumber(Changer.Text) == 5 then
+           CCT1.Visible = false
+           CCT2.Visible = false
+           CCT3.Visible = false
+           CCT4.Visible = false
+           CCT5.Visible = true
+       	end
+    end)
+
+	local CommandName = Instance.new("TextBox")
+	CommandName.Parent = CCT1
+	CommandName.Size = UDim2.new(0,445,0,40)
+	CommandName.Position = UDim2.new(0,25,0,53)
+	CommandName.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	CommandName.BorderColor3 = Color3.fromRGB(25,25,25)
+	CommandName.ZIndex = 5
+ 	CommandName.Text = command1data.Name
+ 	CommandName.PlaceholderText = "Your Command Name"
+	CommandName.ClearTextOnFocus = false
+	CommandName.MultiLine = false
+	CommandName.TextSize = 32
+	CommandName.TextColor3 = Data.Color
+ 	CommandName.TextScaled = true
+   	CommandName.TextXAlignment = "Left"
+	
+ 	local Scroller = Instance.new("ScrollingFrame")
+	Scroller.Parent = CCT1
+	Scroller.Size = UDim2.new(0,445,0,170 -40)
+	Scroller.Position = UDim2.new(0,25,0,65)
+	Scroller.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	Scroller.BorderColor3 = Color3.fromRGB(0,0,0)
+	Scroller.ZIndex = 4
+ 	Scroller.CanvasSize = UDim2.new(0,0,0,99999)
+ 
+ 	lastnum = 0
+ 
+ 	for i,v in pairs(string.split(command1data.Code,"|o|o|o|")) do
+      	if i ~= 1 and v ~= " " then
+    	local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = v
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum = lastnum +1
+     	end
+    end
+    
+    local Button = Instance.new("TextButton")
+	Button.Parent = CCT1
+	Button.Size = UDim2.new(0,130,0,30)
+	Button.Position = UDim2.new(0,25,0,235)
+	Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Button.BorderColor3 = Color3.fromRGB(25,25,25)
+	Button.ZIndex = 4
+ 	Button.Text = "Test Code"
+ 	Button.TextColor3 = Data.Color
+  	Button.TextScaled = true
+   
+   	local Save = Instance.new("TextButton")
+	Save.Parent = CCT1
+	Save.Size = UDim2.new(0,130,0,30)
+	Save.Position = UDim2.new(0,25,0,235 -30)
+	Save.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Save.BorderColor3 = Color3.fromRGB(25,25,25)
+	Save.ZIndex = 4
+ 	Save.Text = "Save"
+ 	Save.TextColor3 = Data.Color
+  	Save.TextScaled = true
+   
+    local plus = Instance.new("TextButton")
+	plus.Parent = CCT1
+	plus.Size = UDim2.new(0,40,0,40)
+	plus.Position = UDim2.new(0,25 +190,0,235)
+	plus.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	plus.BorderColor3 = Color3.fromRGB(0,0,0)
+	plus.ZIndex = 4
+ 	plus.Text = "+"
+ 	plus.TextColor3 = Data.Color
+  	plus.TextScaled = true
+   
+    Button.MouseButton1Click:Connect(function()
+        code = [[ local PlayerExec = game.Players.LocalPlayer
+function chatN(varr) 
+    wait(0.01)
+   	if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(varr)
+    else
+  		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+    end
+end
+function chat(varr) 
+    wait(0.01)    
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("[Zeouron]: "..varr)
+    else
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    end
+end
+
+]]
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." "..v.Text
+        end
+    	loadstring(code)()
+    end)
+
+	Save.MouseButton1Click:Connect(function()
+   		code = ""
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." |o|o|o|"..v.Text
+        end
+    	local saved = {
+    		Name = CommandName.Text,
+    		Code = code
+		}
+        local HttpService = game:GetService("HttpService");
+    	json = HttpService:JSONEncode(saved);
+     	command1data = saved
+      	customCmds[1] = command1data.Name
+     	writefile("ProjectZeouron/Custom1.txt",json)
+    end)
+	
+	plus.MouseButton1Click:Connect(function()
+    	
+ 		local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = ""
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum = lastnum +1
+     
+     	Box.FocusLost:Connect(function()
+        	LastFocused = tonumber(Box.Name)
+        end)
+    end)
+
+local CommandName = Instance.new("TextBox")
+	CommandName.Parent = CCT2
+	CommandName.Size = UDim2.new(0,445,0,40)
+	CommandName.Position = UDim2.new(0,25,0,53)
+	CommandName.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	CommandName.BorderColor3 = Color3.fromRGB(25,25,25)
+	CommandName.ZIndex = 5
+ 	CommandName.Text = command2data.Name
+ 	CommandName.PlaceholderText = "Your Command Name"
+	CommandName.ClearTextOnFocus = false
+	CommandName.MultiLine = false
+	CommandName.TextSize = 32
+	CommandName.TextColor3 = Data.Color
+ 	CommandName.TextScaled = true
+   	CommandName.TextXAlignment = "Left"
+	
+ 	local Scroller = Instance.new("ScrollingFrame")
+	Scroller.Parent = CCT2
+	Scroller.Size = UDim2.new(0,445,0,170 -40)
+	Scroller.Position = UDim2.new(0,25,0,65)
+	Scroller.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	Scroller.BorderColor3 = Color3.fromRGB(0,0,0)
+	Scroller.ZIndex = 4
+ 	Scroller.CanvasSize = UDim2.new(0,0,0,99999)
+ 
+ 	lastnum2 = 0
+ 
+ 	for i,v in pairs(string.split(command2data.Code,"|o|o|o|")) do
+      	if i ~= 1 and v ~= " " then
+    	local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum2 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = v
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum2 = lastnum2 +1
+     	end
+    end
+    
+    local Button = Instance.new("TextButton")
+	Button.Parent = CCT2
+	Button.Size = UDim2.new(0,130,0,30)
+	Button.Position = UDim2.new(0,25,0,235)
+	Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Button.BorderColor3 = Color3.fromRGB(25,25,25)
+	Button.ZIndex = 4
+ 	Button.Text = "Test Code"
+ 	Button.TextColor3 = Data.Color
+  	Button.TextScaled = true
+   
+   	local Save = Instance.new("TextButton")
+	Save.Parent = CCT2
+	Save.Size = UDim2.new(0,130,0,30)
+	Save.Position = UDim2.new(0,25,0,235 -30)
+	Save.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Save.BorderColor3 = Color3.fromRGB(25,25,25)
+	Save.ZIndex = 4
+ 	Save.Text = "Save"
+ 	Save.TextColor3 = Data.Color
+  	Save.TextScaled = true
+   
+    local plus = Instance.new("TextButton")
+	plus.Parent = CCT2
+	plus.Size = UDim2.new(0,40,0,40)
+	plus.Position = UDim2.new(0,25 +190,0,235)
+	plus.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	plus.BorderColor3 = Color3.fromRGB(0,0,0)
+	plus.ZIndex = 4
+ 	plus.Text = "+"
+ 	plus.TextColor3 = Data.Color
+  	plus.TextScaled = true
+   
+    Button.MouseButton1Click:Connect(function()
+        code = [[ local PlayerExec = game.Players.LocalPlayer
+function chatN(varr) 
+    wait(0.01)
+   	if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(varr)
+    else
+  		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+    end
+end
+function chat(varr) 
+    wait(0.01)    
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("[Zeouron]: "..varr)
+    else
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    end
+end
+
+]]
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." "..v.Text
+        end
+    	loadstring(code)()
+    end)
+
+	Save.MouseButton1Click:Connect(function()
+   		code = ""
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." |o|o|o|"..v.Text
+        end
+    	local saved = {
+    		Name = CommandName.Text,
+    		Code = code
+		}
+        local HttpService = game:GetService("HttpService");
+    	json = HttpService:JSONEncode(saved);
+     	command2data = saved
+      	customCmds[2] = command2data.Name
+     	writefile("ProjectZeouron/Custom2.txt",json)
+    end)
+	
+	plus.MouseButton1Click:Connect(function()
+    	
+ 		local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum2 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = ""
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum2 = lastnum2 +1
+     
+     	Box.FocusLost:Connect(function()
+        	LastFocused = tonumber(Box.Name)
+        end)
+    end)
+
+local CommandName = Instance.new("TextBox")
+	CommandName.Parent = CCT3
+	CommandName.Size = UDim2.new(0,445,0,40)
+	CommandName.Position = UDim2.new(0,25,0,53)
+	CommandName.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	CommandName.BorderColor3 = Color3.fromRGB(25,25,25)
+	CommandName.ZIndex = 5
+ 	CommandName.Text = command3data.Name
+ 	CommandName.PlaceholderText = "Your Command Name"
+	CommandName.ClearTextOnFocus = false
+	CommandName.MultiLine = false
+	CommandName.TextSize = 32
+	CommandName.TextColor3 = Data.Color
+ 	CommandName.TextScaled = true
+   	CommandName.TextXAlignment = "Left"
+	
+ 	local Scroller = Instance.new("ScrollingFrame")
+	Scroller.Parent = CCT3
+	Scroller.Size = UDim2.new(0,445,0,170 -40)
+	Scroller.Position = UDim2.new(0,25,0,65)
+	Scroller.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	Scroller.BorderColor3 = Color3.fromRGB(0,0,0)
+	Scroller.ZIndex = 4
+ 	Scroller.CanvasSize = UDim2.new(0,0,0,99999)
+ 
+ 	lastnum3 = 0
+ 
+ 	for i,v in pairs(string.split(command3data.Code,"|o|o|o|")) do
+      	if i ~= 1 and v ~= " " then
+    	local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum3 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = v
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum3 = lastnum3 +1
+     	end
+    end
+    
+    local Button = Instance.new("TextButton")
+	Button.Parent = CCT3
+	Button.Size = UDim2.new(0,130,0,30)
+	Button.Position = UDim2.new(0,25,0,235)
+	Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Button.BorderColor3 = Color3.fromRGB(25,25,25)
+	Button.ZIndex = 4
+ 	Button.Text = "Test Code"
+ 	Button.TextColor3 = Data.Color
+  	Button.TextScaled = true
+   
+   	local Save = Instance.new("TextButton")
+	Save.Parent = CCT3
+	Save.Size = UDim2.new(0,130,0,30)
+	Save.Position = UDim2.new(0,25,0,235 -30)
+	Save.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Save.BorderColor3 = Color3.fromRGB(25,25,25)
+	Save.ZIndex = 4
+ 	Save.Text = "Save"
+ 	Save.TextColor3 = Data.Color
+  	Save.TextScaled = true
+   
+    local plus = Instance.new("TextButton")
+	plus.Parent = CCT3
+	plus.Size = UDim2.new(0,40,0,40)
+	plus.Position = UDim2.new(0,25 +190,0,235)
+	plus.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	plus.BorderColor3 = Color3.fromRGB(0,0,0)
+	plus.ZIndex = 4
+ 	plus.Text = "+"
+ 	plus.TextColor3 = Data.Color
+  	plus.TextScaled = true
+   
+    Button.MouseButton1Click:Connect(function()
+        code = [[ local PlayerExec = game.Players.LocalPlayer
+function chatN(varr) 
+    wait(0.01)
+   	if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(varr)
+    else
+  		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+    end
+end
+function chat(varr) 
+    wait(0.01)    
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("[Zeouron]: "..varr)
+    else
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    end
+end
+
+]]
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." "..v.Text
+        end
+    	loadstring(code)()
+    end)
+
+	Save.MouseButton1Click:Connect(function()
+   		code = ""
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." |o|o|o|"..v.Text
+        end
+    	local saved = {
+    		Name = CommandName.Text,
+    		Code = code
+		}
+        local HttpService = game:GetService("HttpService");
+    	json = HttpService:JSONEncode(saved);
+     	command3data = saved
+      	customCmds[3] = command3data.Name
+     	writefile("ProjectZeouron/Custom3.txt",json)
+    end)
+	
+	plus.MouseButton1Click:Connect(function()
+    	
+ 		local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum3 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = ""
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum3 = lastnum3 +1
+     
+     	Box.FocusLost:Connect(function()
+        	LastFocused = tonumber(Box.Name)
+        end)
+    end)
+
+local CommandName = Instance.new("TextBox")
+	CommandName.Parent = CCT4
+	CommandName.Size = UDim2.new(0,445,0,40)
+	CommandName.Position = UDim2.new(0,25,0,53)
+	CommandName.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	CommandName.BorderColor3 = Color3.fromRGB(25,25,25)
+	CommandName.ZIndex = 5
+ 	CommandName.Text = command4data.Name
+ 	CommandName.PlaceholderText = "Your Command Name"
+	CommandName.ClearTextOnFocus = false
+	CommandName.MultiLine = false
+	CommandName.TextSize = 32
+	CommandName.TextColor3 = Data.Color
+ 	CommandName.TextScaled = true
+   	CommandName.TextXAlignment = "Left"
+	
+ 	local Scroller = Instance.new("ScrollingFrame")
+	Scroller.Parent = CCT4
+	Scroller.Size = UDim2.new(0,445,0,170 -40)
+	Scroller.Position = UDim2.new(0,25,0,65)
+	Scroller.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	Scroller.BorderColor3 = Color3.fromRGB(0,0,0)
+	Scroller.ZIndex = 4
+ 	Scroller.CanvasSize = UDim2.new(0,0,0,99999)
+ 
+ 	lastnum4 = 0
+ 
+ 	for i,v in pairs(string.split(command4data.Code,"|o|o|o|")) do
+      	if i ~= 1 and v ~= " " then
+    	local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum4 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = v
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum4 = lastnum4 +1
+     	end
+    end
+    
+    local Button = Instance.new("TextButton")
+	Button.Parent = CCT4
+	Button.Size = UDim2.new(0,130,0,30)
+	Button.Position = UDim2.new(0,25,0,235)
+	Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Button.BorderColor3 = Color3.fromRGB(25,25,25)
+	Button.ZIndex = 4
+ 	Button.Text = "Test Code"
+ 	Button.TextColor3 = Data.Color
+  	Button.TextScaled = true
+   
+   	local Save = Instance.new("TextButton")
+	Save.Parent = CCT4
+	Save.Size = UDim2.new(0,130,0,30)
+	Save.Position = UDim2.new(0,25,0,235 -30)
+	Save.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Save.BorderColor3 = Color3.fromRGB(25,25,25)
+	Save.ZIndex = 4
+ 	Save.Text = "Save"
+ 	Save.TextColor3 = Data.Color
+  	Save.TextScaled = true
+   
+    local plus = Instance.new("TextButton")
+	plus.Parent = CCT4
+	plus.Size = UDim2.new(0,40,0,40)
+	plus.Position = UDim2.new(0,25 +190,0,235)
+	plus.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	plus.BorderColor3 = Color3.fromRGB(0,0,0)
+	plus.ZIndex = 4
+ 	plus.Text = "+"
+ 	plus.TextColor3 = Data.Color
+  	plus.TextScaled = true
+   
+    Button.MouseButton1Click:Connect(function()
+        code = [[ local PlayerExec = game.Players.LocalPlayer
+function chatN(varr) 
+    wait(0.01)
+   	if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(varr)
+    else
+  		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+    end
+end
+function chat(varr) 
+    wait(0.01)    
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("[Zeouron]: "..varr)
+    else
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    end
+end
+
+]]
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." "..v.Text
+        end
+    	loadstring(code)()
+    end)
+
+	Save.MouseButton1Click:Connect(function()
+   		code = ""
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." |o|o|o|"..v.Text
+        end
+    	local saved = {
+    		Name = CommandName.Text,
+    		Code = code
+		}
+        local HttpService = game:GetService("HttpService");
+    	json = HttpService:JSONEncode(saved);
+     	command4data = saved
+      	customCmds[4] = command4data.Name
+     	writefile("ProjectZeouron/Custom4.txt",json)
+    end)
+	
+	plus.MouseButton1Click:Connect(function()
+    	
+ 		local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum4 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = ""
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum4 = lastnum4 +1
+     
+     	Box.FocusLost:Connect(function()
+        	LastFocused = tonumber(Box.Name)
+        end)
+    end)
+
+local CommandName = Instance.new("TextBox")
+	CommandName.Parent = CCT5
+	CommandName.Size = UDim2.new(0,445,0,40)
+	CommandName.Position = UDim2.new(0,25,0,53)
+	CommandName.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	CommandName.BorderColor3 = Color3.fromRGB(25,25,25)
+	CommandName.ZIndex = 5
+ 	CommandName.Text = command5data.Name
+ 	CommandName.PlaceholderText = "Your Command Name"
+	CommandName.ClearTextOnFocus = false
+	CommandName.MultiLine = false
+	CommandName.TextSize = 32
+	CommandName.TextColor3 = Data.Color
+ 	CommandName.TextScaled = true
+   	CommandName.TextXAlignment = "Left"
+	
+ 	local Scroller = Instance.new("ScrollingFrame")
+	Scroller.Parent = CCT5
+	Scroller.Size = UDim2.new(0,445,0,170 -40)
+	Scroller.Position = UDim2.new(0,25,0,65)
+	Scroller.BackgroundColor3 = Color3.fromRGB(10,10,10)
+	Scroller.BorderColor3 = Color3.fromRGB(0,0,0)
+	Scroller.ZIndex = 4
+ 	Scroller.CanvasSize = UDim2.new(0,0,0,99999)
+ 
+ 	lastnum5 = 0
+ 
+ 	for i,v in pairs(string.split(command5data.Code,"|o|o|o|")) do
+      	if i ~= 1 and v ~= " " then
+    	local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum5 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = v
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum5 = lastnum5 +1
+     	end
+    end
+    
+    local Button = Instance.new("TextButton")
+	Button.Parent = CCT5
+	Button.Size = UDim2.new(0,130,0,30)
+	Button.Position = UDim2.new(0,25,0,235)
+	Button.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Button.BorderColor3 = Color3.fromRGB(25,25,25)
+	Button.ZIndex = 4
+ 	Button.Text = "Test Code"
+ 	Button.TextColor3 = Data.Color
+  	Button.TextScaled = true
+   
+   	local Save = Instance.new("TextButton")
+	Save.Parent = CCT5
+	Save.Size = UDim2.new(0,130,0,30)
+	Save.Position = UDim2.new(0,25,0,235 -30)
+	Save.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Save.BorderColor3 = Color3.fromRGB(25,25,25)
+	Save.ZIndex = 4
+ 	Save.Text = "Save"
+ 	Save.TextColor3 = Data.Color
+  	Save.TextScaled = true
+   
+    local plus = Instance.new("TextButton")
+	plus.Parent = CCT5
+	plus.Size = UDim2.new(0,40,0,40)
+	plus.Position = UDim2.new(0,25 +190,0,235)
+	plus.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	plus.BorderColor3 = Color3.fromRGB(0,0,0)
+	plus.ZIndex = 4
+ 	plus.Text = "+"
+ 	plus.TextColor3 = Data.Color
+  	plus.TextScaled = true
+   
+    Button.MouseButton1Click:Connect(function()
+        code = [[ local PlayerExec = game.Players.LocalPlayer
+function chatN(varr) 
+    wait(0.01)
+   	if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(varr)
+    else
+  		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(varr, "All")
+    end
+end
+function chat(varr) 
+    wait(0.01)    
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then 
+    	game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("[Zeouron]: "..varr)
+    else
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(NameActual..varr, "All")
+    end
+end
+
+]]
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." "..v.Text
+        end
+    	loadstring(code)()
+    end)
+
+	Save.MouseButton1Click:Connect(function()
+   		code = ""
+    	for i,v in pairs(Scroller:GetChildren()) do
+        	code = code.." |o|o|o|"..v.Text
+        end
+    	local saved = {
+    		Name = CommandName.Text,
+    		Code = code
+		}
+        local HttpService = game:GetService("HttpService");
+    	json = HttpService:JSONEncode(saved);
+     	command5data = saved
+      	customCmds[5] = command5data.Name
+     	writefile("ProjectZeouron/Custom5.txt",json)
+    end)
+	
+	plus.MouseButton1Click:Connect(function()
+    	
+ 		local Box = Instance.new("TextBox")
+		Box.Parent = Scroller
+ 		Box.Name = lastnum5 +1
+		Box.Size = UDim2.new(0,445,0,30)
+		Box.Position = UDim2.new(0,0,0,tonumber(Box.Name) *30)
+		Box.BackgroundColor3 = Color3.fromRGB(25,25,25)
+		Box.BorderColor3 = Color3.fromRGB(25,25,25)
+		Box.ZIndex = 4
+ 		Box.Text = ""
+ 		Box.PlaceholderText = ""
+		Box.ClearTextOnFocus = false
+		Box.MultiLine = false
+  		Box.TextSize = 32
+ 		Box.TextColor3 = Data.Color
+  		Box.TextScaled = true
+   		Box.TextXAlignment = "Left"
+    	lastnum5 = lastnum5 +1
+     
+     	Box.FocusLost:Connect(function()
+        	LastFocused = tonumber(Box.Name)
+        end)
+    end)
+
+local CRound = Instance.new("UICorner")
+CRound.Parent = CC
+CRound.CornerRadius = UDim.new(0.11,0.11)
+
+local CoRound = Instance.new("UICorner")
+CoRound.Parent = CCo
+CoRound.CornerRadius = UDim.new(0.11,0.11)
+
 local CRound = Instance.new("UICorner")
 CRound.Parent = C
 CRound.CornerRadius = UDim.new(0.11,0.11)
@@ -534,6 +1476,40 @@ MSo.MouseButton1Click:Connect(function()
         MsWait = false
         wait(3)
         MsWait = true
+    end
+end)
+
+CC.MouseButton1Click:Connect(function()
+    if CanDo then
+    	CC.Visible = false
+    	CCo.Visible = true
+    
+    	local TweenInf0 = TweenInfo.new(2) 
+		local PlayThis = TweenService:Create(MST, TweenInf0, {Position = UDim2.new(0,-390 -125 -20,0,0)})
+		PlayThis:Play()
+  
+  		local TweenInf0 = TweenInfo.new(2) 
+		local PlayThis = TweenService:Create(CCT, TweenInf0, {Position = UDim2.new(0,0,0,0)})
+		PlayThis:Play()
+    end
+end)
+
+CCo.MouseButton1Click:Connect(function()
+    if CanDo then
+    	CCo.Visible = false
+    	CC.Visible = true
+    
+    	local TweenInf0 = TweenInfo.new(2) 
+		local PlayThis = TweenService:Create(MST, TweenInf0, {Position = UDim2.new(0,0,0,0)})
+		PlayThis:Play()
+  
+  		local TweenInf0 = TweenInfo.new(2) 
+		local PlayThis = TweenService:Create(CCT, TweenInf0, {Position = UDim2.new(0,390 +125 +20,0,0)})
+		PlayThis:Play()
+  
+        CanDo = false
+        wait(2.1)
+        CanDo = true
     end
 end)
 
@@ -674,6 +1650,15 @@ function chat(varr)
     end
 end
 
+finduser = function(string)
+    for i,v in pairs(game.Players:GetPlayers()) do
+    	if v.Name:lower() == string:lower() or v.DisplayName:lower() == string:lower() then
+    		return v
+    	end
+    end
+end
+
+
 if LoadMsg then
 	chat("Loaded Zeouron Alt control, Say \""..Prefix.."Cmds\" for commands!, type \""..Prefix.."Information\" for more info")
 end
@@ -681,6 +1666,7 @@ end
 local Admins = {lp.Name}
 function HandleCommand(command, string1, string2, string3, string4, Player) -- Command handle
     isadmin = false
+    PlayerExec = Player
             for i,v in pairs(Admins) do
             	if v == Player.Name or Player.Name == lp.Name then
             		isadmin = true
@@ -722,6 +1708,72 @@ function HandleCommand(command, string1, string2, string3, string4, Player) -- C
               	end
             end
         	
+         	if command == Prefix..customCmds[1]:lower() then -- custom command
+              	arg1 = string1
+               	arg2 = string2
+                arg3 = string3
+                arg4 = string4
+               
+               	local code = ""
+    			for i,v in pairs(string.split(command1data.Code,"|o|o|o|")) do
+           			code = code..v
+           		end
+            	loadstring(code)()
+            end
+         
+         	if command == Prefix..customCmds[2]:lower() then -- custom command
+              	arg1 = string1
+               	arg2 = string2
+                arg3 = string3
+                arg4 = string4
+              
+              	local code = ""
+    			for i,v in pairs(string.split(command2data.Code,"|o|o|o|")) do
+           			code = code..v
+           		end
+            	loadstring(code)()
+            end
+        
+        	if command == Prefix..customCmds[3]:lower() then -- custom command
+             	arg1 = string1
+               	arg2 = string2
+                arg3 = string3
+                arg4 = string4
+             
+              	local code = ""
+    			for i,v in pairs(string.split(command3data.Code,"|o|o|o|")) do
+           			code = code..v
+           		end
+            	loadstring(code)()
+            end
+         
+         	if command == Prefix..customCmds[4]:lower() then -- custom command
+              	arg1 = string1
+               	arg2 = string2
+                arg3 = string3
+                arg4 = string4
+              
+              	local code = ""
+    			for i,v in pairs(string.split(command4data.Code,"|o|o|o|")) do
+           			code = code..v
+           		end
+            	loadstring(code)()
+            end
+         
+         	if command == Prefix..customCmds[5]:lower() then -- custom command
+              	arg1 = string1
+               	arg2 = string2
+                arg3 = string3
+                arg4 = string4
+              
+              	local code = ""
+    			for i,v in pairs(string.split(command5data.Code,"|o|o|o|")) do
+           			code = code..v
+           		end
+            	loadstring(code)()
+            end
+         
+         
         	if command == Prefix..cmds[32] then -- move
              	if string2 == nil then
                   	chat("Please select an amount of studs to move")
@@ -1189,25 +2241,24 @@ end)
     end
 end)
 
-local TweenInf0 = TweenInfo.new(2) 
+local TweenInf0 = TweenInfo.new(0) 
 local PlayThis = TweenService:Create(ProjectZeouron, TweenInf0, {ImageTransparency = 0})
 PlayThis:Play()
 
-wait(2.8)
 n = 0
 
-local TweenInf0 = TweenInfo.new(2) 
+local TweenInf0 = TweenInfo.new(0) 
 local PlayThis = TweenService:Create(C, TweenInf0, {BackgroundTransparency = n})
 PlayThis:Play()
 
-local TweenInf0 = TweenInfo.new(2) 
+local TweenInf0 = TweenInfo.new(0) 
 local PlayThis = TweenService:Create(Co, TweenInf0, {BackgroundTransparency = n})
 PlayThis:Play()
 
-local TweenInf0 = TweenInfo.new(2) 
+local TweenInf0 = TweenInfo.new(0) 
 local PlayThis = TweenService:Create(C, TweenInf0, {TextTransparency = n})
 PlayThis:Play()
 
-local TweenInf0 = TweenInfo.new(2) 
+local TweenInf0 = TweenInfo.new(0) 
 local PlayThis = TweenService:Create(Co, TweenInf0, {TextTransparency = n})
 PlayThis:Play() 
