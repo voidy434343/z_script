@@ -338,9 +338,30 @@ ProjectZeouron.Size = UDim2.new(0,152 *1.7,0,152 *1.7)
 ProjectZeouron.Position = UDim2.new(0,390 /1.7,0,33)
 ProjectZeouron.Parent = MST
 ProjectZeouron.BackgroundTransparency = 1
-ProjectZeouron.ZIndex = 5
-ProjectZeouron.Image = "http://www.roblox.com/asset/?id=16096831367"
-ProjectZeouron.ImageTransparency = 1
+ProjectZeouron.ZIndex = 6
+ProjectZeouron.Image = "http://www.roblox.com/asset/?id=16446450034"
+ProjectZeouron.ImageTransparency = 0
+
+local ProjectZeouronB = Instance.new("ImageLabel")
+
+ProjectZeouronB.Size = UDim2.new(0,152 *1.7,0,152 *1.7)
+ProjectZeouronB.Position = UDim2.new(0,0,0,0)
+ProjectZeouronB.Parent = ProjectZeouron
+ProjectZeouronB.BackgroundTransparency = 1
+ProjectZeouronB.ZIndex = 5
+ProjectZeouronB.Image = "http://www.roblox.com/asset/?id=16446446084"
+ProjectZeouronB.ImageTransparency = 0
+
+local ProjectZeouronBo = Instance.new("ImageLabel")
+
+ProjectZeouronBo.Size = UDim2.new(0,152 *1.7,0,152 *1.7)
+ProjectZeouronBo.Position = UDim2.new(0,0,0,0)
+ProjectZeouronBo.Parent = ProjectZeouron
+ProjectZeouronBo.BackgroundTransparency = 1
+ProjectZeouronBo.ZIndex = 5.5
+ProjectZeouronBo.Image = "http://www.roblox.com/asset/?id=16446446084"
+ProjectZeouronBo.ImageTransparency = 0
+ProjectZeouronBo.Rotation = 110
 
 local Prefixo = Instance.new("TextBox")
 
@@ -1584,14 +1605,25 @@ ProjectZeouron.MouseButton1Click:Connect(function()
     if CanExec then
     CanExec = false
     local TweenInf0 = TweenInfo.new(8.33, Enum.EasingStyle.Exponential)
-    local PlayThisA = TweenService:Create(ProjectZeouron, TweenInf0, {Rotation = 90 *6})
+    local PlayThisA = TweenService:Create(ProjectZeouronBo, TweenInf0, {Rotation = 90 *6})
     PlayThisA:Play()
+    
+    local TweenInf0 = TweenInfo.new(8.33, Enum.EasingStyle.Exponential)
+    local PlayThisA = TweenService:Create(ProjectZeouronB, TweenInf0, {Rotation = -90 *6})
+    PlayThisA:Play()
+    
     wait(9)
     for i,v in pairs(G:GetDescendants()) do
         if not v:IsA("UICorner") then
        	    local TweenInf0 = TweenInfo.new(math.random(2,4))
         	local PlayThisA = TweenService:Create(v, TweenInf0, {Size = UDim2.new(0,0,0,0)})
     		PlayThisA:Play()
+      
+      		if v ~= Top then
+      			local TweenInf0 = TweenInfo.new(math.random(3,4))
+        		local PlayThisA = TweenService:Create(v, TweenInf0, {Position = UDim2.new(0,v.Position.X.Offset +math.random(-75,75),0,v.Position.Y.Offset +math.random(-75,75))})
+    			PlayThisA:Play()
+      		end
         end
     end
     
