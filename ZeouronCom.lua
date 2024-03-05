@@ -4,6 +4,7 @@ Cam = game.Workspace.CurrentCamera
 local TweenService = game:GetService("TweenService")
 local fly = false
 local Oldgravity = game.Workspace.Gravity
+local cam = game.Workspace.CurrentCamera
 
 local Data = {
     Font = Enum.Font.Arcade,
@@ -117,7 +118,7 @@ end
 command.run = function(split)
     for i,v in pairs(command) do
         if typeof(v) == "table" then
-        if v.commandM == split[1] or v.commandO == split[1] then
+        if v.commandM == split[1] or v.commandO == split[1] and split[1] ~= "" then
             v.functiono(split)
         end
     	end
@@ -549,7 +550,7 @@ command.add("mobileaimbot", "maimbot", "<checkteam?> <fov>", function(splitt)
     end
 
 local fov = setfov 
-local maxDistance = 400
+local maxDistance = 100
 local maxTransparency = 0.1
 if splitt[2] == "true" then
 local teamCheck = true
@@ -658,6 +659,47 @@ end)
 information("-- Credit Dollynho --")
 end)
 
+local Noclipping = nil
+command.add("noclip", "nc", "(IY)", function(splitt)
+	Clip = false
+	wait(0.1)
+	local function NoclipLoop()
+		if Clip == false and lp.Character ~= nil then
+			for _, child in pairs(speaker.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true then
+					child.CanCollide = false
+				end
+			end
+		end
+	end
+	Noclipping = game.RunService.Stepped:Connect(NoclipLoop)
+end)
+
+command.add("clip", "", "(IY)", function(splitt)
+    if Noclipping then
+		Noclipping:Disconnect()
+	end
+	Clip = true
+end)
+
+spam = false
+spamstr = ""
+command.add("spam", "loopchat", "<string>", function(splitt)
+   	msg = ""
+	for i,v in pairs(splitt) do
+    	if i > 1 then
+        	msg = msg..v.." "
+       	end
+    end
+
+    spam = true
+	spamstr = msg
+end)
+
+command.add("unspam", "unloopchat", "", function(splitt)
+    spam = false
+end)
+
 onoff = false
 icon.MouseButton1Click:Connect(function()
     if onoff then
@@ -708,4 +750,18 @@ game:GetService("RunService").Stepped:Connect(function()
     if lp.character:FindFirstChild("HumanoidRootPart") ~= nil and tpwalk then
         game.Players.LocalPlayer.Character:TranslateBy(game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid").MoveDirection * tpspeed * TPWalking * 10)
   	end
+	if lp.character:FindFirstChild("HumanoidRootPart") ~= nil and fly then
+    	lp.character.Humanoid.PlatformStand = true
+     	pos = lp.character.HumanoidRootPart.Position
+     	x, y, z = game.Workspace.CurrentCamera.CFrame:ToEulerAnglesXYZ()
+      	rot = Vector3.new(x,y,z)
+     	cf = CFrame.new(pos, rot)
+  		lp.character.HumanoidRootPart.CFrame = cf
+    end
 end)
+
+while wait(1) do
+    if spam then
+    	chat(spamstr)
+    end
+end
