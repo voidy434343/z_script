@@ -48,7 +48,44 @@ Data = {
     }
 }
 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/voidy434343/Zeouronic-Library/main/Lib%20loadstring.txt'))()
+local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/voidy434343/Zeouronic-Library/main/Lib%20loadstring.txt'))()
+
+local icon = Instance.new("ImageButton")
+
+icon.Position = UDim2.new(0.5,0,0,0)
+icon.Size = UDim2.new(0.030 *1.7,0,0.05 *1.7,0)
+icon.BackgroundTransparency = 1
+icon.Image = "http://www.roblox.com/asset/?id=16446450034"
+icon.Draggable = true 
+icon.Active = true 
+icon.Selectable = true
+icon.ZIndex = 10
+
+local back1 = Instance.new("ImageButton")
+
+back1.Position = UDim2.new(0,0,0,0)
+back1.Size = UDim2.new(1,0,1,0)
+back1.BackgroundTransparency = 1
+back1.Parent = icon
+back1.Image = "http://www.roblox.com/asset/?id=16446446084"
+back1.Draggable = true 
+back1.Active = true 
+back1.Selectable = true
+back1.ZIndex = 9
+
+local back2 = Instance.new("ImageButton")
+
+back2.Position = UDim2.new(0,0,0,0)
+back2.Size = UDim2.new(1,0,1,0)
+back2.BackgroundTransparency = 1
+back2.Parent = icon
+back2.Image = "http://www.roblox.com/asset/?id=16446446084"
+back2.Draggable = true 
+back2.Active = true 
+back2.Selectable = true
+back2.ZIndex = 9
+
+SetonoffButton(icon)
 
 newtab("PVP", Data.Icons.Skull)
 newtab("Map")
