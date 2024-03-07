@@ -53,7 +53,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/voidy434343/Zeouronic
 newtab("PVP", Data.Icons.Skull)
 newtab("Map")
 
-switch("WalkSpeed Bypass", "PVP", function()
+switch("WalkSpeed Bypass", "PVP", function(bool)
     Wb = bool
     if bool then
     	while wait() and Wb do
@@ -66,7 +66,7 @@ switch("WalkSpeed Bypass", "PVP", function()
 	end
 end)
 
-slider("Set walkspeed", "PVP", 16, 100, 16, function()
+slider("Set walkspeed", "PVP", 16, 100, 16, function(number)
     Speed = number
 end)
 
@@ -78,7 +78,7 @@ button("Infinite Stamina", "PVP", function()
  
 end)
 
-switch("Attack", "PVP", function()
+switch("Attack", "PVP", function(bool)
     Att = bool
     if bool then
     	while wait() and Att do
