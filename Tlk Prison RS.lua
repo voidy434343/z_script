@@ -48,7 +48,7 @@ Data = {
     }
 }
 
-local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/voidy434343/Zeouronic-Library/main/Lib%20loadstring.txt'))()
+local Zeouronic = loadstring(game:HttpGet('https://raw.githubusercontent.com/voidy434343/Zeouronic-Library/main/Lib%20loadstring.txt'))()
 
 local icon = Instance.new("ImageButton")
 
@@ -90,7 +90,7 @@ SetonoffButton(icon)
 newtab("PVP", Data.Icons.Skull)
 newtab("Map")
 
-switch("WalkSpeed Bypass", "PVP", function(bool)
+Zeouronic.switch("WalkSpeed Bypass", "PVP", function(bool)
     Wb = bool
     if bool then
     	while wait() and Wb do
@@ -103,19 +103,18 @@ switch("WalkSpeed Bypass", "PVP", function(bool)
 	end
 end)
 
-slider("Set walkspeed", "PVP", 16, 100, 16, function(number)
+Zeouronic.slider("Set walkspeed", "PVP", 16, 100, 16, function(number)
     Speed = number
 end)
 
-button("Infinite Stamina", "PVP", function()
+Zeouronic.button("Infinite Stamina", "PVP", function()
  	local args = {[1] = true, [2] = 999999}
 
 	game:GetService("ReplicatedStorage").AddStamina:FireServer(unpack(args))
  	information("Execute this if you have under 100 stamina,")
- 
 end)
 
-switch("Attack", "PVP", function(bool)
+Zeouronic.switch("Attack", "PVP", function(bool)
     Att = bool
     if bool then
     	while wait() and Att do
@@ -134,7 +133,7 @@ game:GetService("RunService").Stepped:Connect(function()
     
 end)
 
-button("Remove Doors", "Map", function()
+Zeouronic.button("Remove Doors", "Map", function()
     if game.Workspace:FindFirstChild("Doors") then
         game.Workspace:FindFirstChild("Doors"):Destroy()
     end
